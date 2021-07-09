@@ -50,3 +50,14 @@ This tutorial assumes you have access to [Linode](https://cloud.linode.com). If 
 * [Smoke Test](docs/13-smoke-test.md) (WIP)
 * [Cleaning Up](docs/14-cleanup.md) (WIP)
 
+## Scripts
+
+Since I'm only able to work on this is short stretches, it's easiest to script out steps so I can pick up where I left off. If you'd like to get to a certain point automatically, for example, the end of the steps in `docs/06-data-encryption-keys.md`, then you can run:
+
+```
+for i in {3..6}; do
+    ./scripts/${i}.sh
+done
+```
+
+And to clean up at any point, just run `./scripts/14.sh`. This also removes all the local resources (like yaml config files and ssh keys) that were generated along the way.

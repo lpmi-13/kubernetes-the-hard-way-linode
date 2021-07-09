@@ -14,21 +14,18 @@ which should set your `$REGION` to `eu-west`, but feel free to update the region
 
 ### Kubernetes Public Access - Create a Network Load Balancer
 
-(still working out what the analog for the forwarding and health checks are in linode-land
 ```sh
-LOAD_BALANCER_ID=$(linode-cli nodebalancers create \
-  --label kubernetes-lb \
+NODE_BALANCER_ID=$(linode-cli nodebalancers create \
+  --label kubernetes-nodebalancer \
   --region ${REGION} \
-  #--forwarding-rules entry_protocol:https,entry_port:443,target_protocol:https,target_port:6443,certificate_id:,tls_passthrough:true \
-  #--health-check protocol:https,port:6443,path:/healthz,check_interval_seconds:10,response_timeout_seconds:5,healthy_threshold:5,unhealthy_threshold:3 \
   --json | jq -r '.[].id')
 ```
 
 > the load balancer takes about a minute or so to be created, so if the ip address doesn't resolve with the following command, try again a bit later.
 
 ```sh
-KUBERNETES_PUBLIC_ADDRESS=$(linode-cli nodebalancers list \
-  --json | jq -r '.[].ipv4')
+KUBERNETES_PUBLIC_ADDRESS=$(linode-cli nodebalancers list --json \
+  | jq -cr '.[] | select(.label == "kubernetes-nodebalancer") | .ipv4')
 ```
 
 ## Compute Instances
@@ -60,7 +57,7 @@ for i in 0 1 2; do
     --root_pass "CHANGE_ME" \
     --authorized_keys "$AUTHORIZED_KEY" \
     --label controller-${i} \
-    --tags kubernetes,controller \
+    --tags controller \
     --private_ip true
 done
 ```
@@ -70,13 +67,13 @@ done
 ```sh
 for i in 0 1 2; do
   linode-cli linodes create \
-    --type g6-nanode-1
+    --type g6-nanode-1 \
     --region ${REGION} \
     --image linode/ubuntu18.04 \
     --root_pass "CHANGE_ME" \
     --authorized_keys "$AUTHORIZED_KEY" \
     --label worker-${i} \
-    --tags kubernetes,worker \
+    --tags worker \
     --private_ip true
 done
 ```
@@ -90,12 +87,13 @@ First, we need to set a specific config for the load balancer, and then we can a
 ```sh
 CONFIG_ID=$(linode-cli nodebalancers config-create \
   --port 443 \
-  --protocol http \
+  --protocol https \
   --check connection \
-  --check_interval 30 \
-  --check_timeout 3 \
-  --check_attempts 2 \
-  "$LOAD_BALANCER_ID" | jq -r '.[].id')
+  --check_path /healthz \
+  --check_interval 10 \
+  --check_timeout 5 \
+  --check_attempts 3 \
+  "$NODE_BALANCER_ID" | jq -r '.[].id')
 ```
 
 Now we need to iterate through the nodes and grab their private IP addresses so we can attach them using both the nodebalancer ID and the config ID.
@@ -105,9 +103,9 @@ for i in 0 1 2; do
   instance_id=$(linode-cli linodes list --label controller-${i} --json | jq -r '.[].id')
   private_ip=$linode-cli linodes ips-list $instance_id --json | jq -r '.[].ipv4.private | .[].address')
   linode-cli nodebalancers node-create \
-    --address "$private_ip" \
+    --address "${private_ip}:6443" \
     --label controller-${i} \
-    "$LOAD_BALANCER_ID" \
+    "$NODE_BALANCER_ID" \
     "$CONFIG_ID"
   echo added controller-${i} to load balancer
 done
