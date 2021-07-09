@@ -1,1 +1,6 @@
 .env
+*.pem
+*.json
+!firewall_rules.json
+*.csr
+*id_rsa*

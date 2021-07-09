@@ -1,0 +1,1 @@
+export REGION=eu-west

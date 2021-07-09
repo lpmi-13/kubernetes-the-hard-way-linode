@@ -1,0 +1,120 @@
+{
+  "label": "kubernetes-firewall",
+  "rules": {
+    "inbound": [
+      {
+        "ports": "22",
+        "protocol": "TCP",
+        "addresses": {
+          "ipv4": [
+            "0.0.0.0/0"
+          ],
+          "ipv6": [
+            "::/0"
+          ]
+        },
+        "action": "ACCEPT",
+        "label": "accept-inbound-SSH",
+        "description": "allow inbound ssh to instances"
+      },
+      {
+        "ports": "6443",
+        "protocol": "TCP",
+        "addresses": {
+          "ipv4": [
+            "0.0.0.0/0"
+          ]
+        },
+        "action": "ACCEPT",
+        "label": "control-ingress",
+        "description": "allows ingress to k8s control plane"
+      },
+      {
+        "ports": "443",
+        "protocol": "TCP",
+        "addresses": {
+          "ipv4": [
+            "0.0.0.0/0"
+          ]
+        },
+        "action": "ACCEPT",
+        "label": "accept-inbound-HTTPS",
+        "description": "allows ingress over https"
+      },
+      {
+        "ports": "1-65535",
+        "protocol": "TCP",
+        "addresses": {
+          "ipv4": [
+            "192.168.0.0/16"
+          ]
+        },
+        "action": "ACCEPT",
+        "label": "inter-controller-ingress",
+        "description": "allow communication between controllers over tcp"
+      },
+      {
+        "ports": "1-65535",
+        "protocol": "UDP",
+        "addresses": {
+          "ipv4": [
+            "192.168.0.0/16"
+          ]
+        },
+        "action": "ACCEPT",
+        "label": "inter-controller-udp",
+        "description": "allow inter-controller communication over udp"
+      },
+      {
+        "protocol": "ICMP",
+        "addresses": {
+          "ipv4": [
+            "0.0.0.0/0"
+          ]
+        },
+        "action": "ACCEPT",
+        "label": "icmp-ingress",
+        "description": "allow pings to hit us"
+      }
+    ],
+    "outbound": [
+      {
+        "protocol": "ICMP",
+        "addresses": {
+          "ipv4": [
+            "0.0.0.0/0"
+          ]
+        },
+        "action": "ACCEPT",
+        "label": "icmp-egress",
+        "description": "allow us to ping stuff"
+      },
+      {
+    "ports": "1-65535",
+        "protocol": "TCP",
+        "addresses": {
+          "ipv4": [
+            "0.0.0.0/0"
+          ]
+        },
+        "action": "ACCEPT",
+        "label": "tcp-egress",
+        "description": "allow us to send any tcp out"
+      },
+      {
+        "ports": "1-65535",
+        "protocol": "UDP",
+        "addresses": {
+          "ipv4": [
+            "0.0.0.0/0"
+          ]
+        },
+        "action": "ACCEPT",
+        "label": "udp-egress",
+        "description": "allow all udp packets out"
+      }
+    ],
+    "inbound_policy": "ACCEPT",
+    "outbound_policy": "ACCEPT"
+  }
+}
