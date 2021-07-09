@@ -35,7 +35,7 @@ Kubernetes The Hard Way guides you through bootstrapping a highly available Kube
 
 This tutorial assumes you have access to [Linode](https://cloud.linode.com). If you are looking for the GCP version of this guide then look at : [https://github.com/kelseyhightower/kubernetes-the-hard-way](https://github.com/kelseyhightower/kubernetes-the-hard-way).
 
-* [Prerequisites](docs/01-prerequisites.md) (WIP)
+* [Prerequisites](docs/01-prerequisites.md)
 * [Installing the Client Tools](docs/02-client-tools.md) (WIP)
 * [Provisioning Compute Resources](docs/03-compute-resources.md) (WIP)
 * [Provisioning the CA and Generating TLS Certificates](docs/04-certificate-authority.md) (WIP)

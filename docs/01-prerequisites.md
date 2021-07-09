@@ -52,25 +52,15 @@ I _think_ all we need for this tutorial are linodes and nodebalancers, but I gue
 REGION=eu-west
 ```
 
-
-
-
-
-
-
-
-
-
-
 ### configure the CLI tool to interact with your account
 
-Follow along with the [documentation](https://www.digitalocean.com/docs/apis-clis/api/create-personal-access-token/) to generate an access token, then use:
+Follow along with the [documentation](https://cloud.linode.com/profile/tokens) to generate an access token, then use:
 
 ```
-doctl auth init
+linode-cli configure
 ```
 
-to be prompted to enter it so you can interact with the DO API
+to be prompted to enter it so you can interact with the Linode API
 
 
 ## Running Commands in Parallel with tmux
