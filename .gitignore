@@ -1,5 +1,6 @@
 .env
 *.pem
+*.kubeconfig
 *.json
 !firewall_rules.json
 *.csr
