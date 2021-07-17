@@ -21,8 +21,8 @@ else
   echo "no local public key found"
 fi
 
-NODE_BALANCER_ID=$(linode-cli nodebalancers list --json \
-  | jq -cr '.[] | select(.label == "kubernetes-nodebalancer") | .id')
+NODE_BALANCER_ID=$(linode-cli nodebalancers list --label kubernetes-nodebalancer --json \
+  | jq -cr '.[].id')
 if [ -z ${NODE_BALANCER_ID} ]; then
   echo "no load balancer found"
 else
@@ -30,7 +30,7 @@ else
   linode-cli nodebalancers delete ${NODE_BALANCER_ID}
 fi
 
-FIREWALL_ID=$(linode-cli firewalls list --json | jq -cr '.[] | select(.label == "kubernetes-firewall") | .id')
+FIREWALL_ID=$(linode-cli firewalls list --label kubernetes-firewall --json | jq -cr '.[].id')
 if [ -z ${FIREWALL_ID} ]; then
   echo "no firewall found"
 else

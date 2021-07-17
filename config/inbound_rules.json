@@ -1,0 +1,85 @@
+[
+  {
+    "ports": "22",
+    "protocol": "TCP",
+    "addresses": {
+      "ipv4": [
+        "0.0.0.0/0"
+      ]
+    },
+    "action": "ACCEPT",
+    "label": "accept-inbound-SSH",
+    "description": "allow inbound ssh to instances"
+  },
+  {
+    "ports": "6443",
+    "protocol": "TCP",
+    "addresses": {
+      "ipv4": [
+        "0.0.0.0/0"
+      ]
+    },
+    "action": "ACCEPT",
+    "label": "control-ingress",
+    "description": "allows ingress to k8s control plane"
+  },
+  {
+    "ports": "80",
+    "protocol": "TCP",
+    "addresses": {
+      "ipv4": [
+        "0.0.0.0/0"
+      ]
+    },
+    "action": "ACCEPT",
+    "label": "accept-inbound-HTTP",
+    "description": "allows ingress over http"
+  },
+  {
+    "ports": "443",
+    "protocol": "TCP",
+    "addresses": {
+      "ipv4": [
+        "0.0.0.0/0"
+      ]
+    },
+    "action": "ACCEPT",
+    "label": "accept-inbound-HTTPS",
+    "description": "allows ingress over https"
+  },
+  {
+    "ports": "1-65535",
+    "protocol": "TCP",
+    "addresses": {
+      "ipv4": [
+        "192.168.0.0/16"
+      ]
+    },
+    "action": "ACCEPT",
+    "label": "inter-controller-tcp",
+    "description": "allow communication between controllers over tcp"
+  },
+  {
+    "ports": "1-65535",
+    "protocol": "UDP",
+    "addresses": {
+      "ipv4": [
+        "192.168.0.0/16"
+      ]
+    },
+    "action": "ACCEPT",
+    "label": "inter-controller-udp",
+    "description": "allow inter-controller communication over udp"
+  },
+  {
+    "protocol": "ICMP",
+    "addresses": {
+      "ipv4": [
+        "0.0.0.0/0"
+      ]
+    },
+    "action": "ACCEPT",
+    "label": "icmp-ingress",
+    "description": "allow pings to hit us"
+  }
+]

@@ -1,0 +1,37 @@
+[
+  {
+    "protocol": "ICMP",
+    "addresses": {
+      "ipv4": [
+        "0.0.0.0/0"
+      ]
+    },
+    "action": "ACCEPT",
+    "label": "icmp-egress",
+    "description": "allow us to ping stuff"
+  },
+  {
+"ports": "1-65535",
+    "protocol": "TCP",
+    "addresses": {
+      "ipv4": [
+        "0.0.0.0/0"
+      ]
+    },
+    "action": "ACCEPT",
+    "label": "tcp-egress",
+    "description": "allow us to send any tcp out"
+  },
+  {
+    "ports": "1-65535",
+    "protocol": "UDP",
+    "addresses": {
+      "ipv4": [
+        "0.0.0.0/0"
+      ]
+    },
+    "action": "ACCEPT",
+    "label": "udp-egress",
+    "description": "allow all udp packets out"
+  }
+]

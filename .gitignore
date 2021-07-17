@@ -2,6 +2,6 @@
 *.pem
 *.kubeconfig
 *.json
-!firewall_rules.json
 *.csr
+!/config/*
 *id_rsa*
