@@ -1,5 +1,5 @@
-KUBERNETES_PUBLIC_ADDRESS=$(linode-cli nodebalancers list \
-  --json | jq -cr '.[] | select(.label == "kubernetes-nodebalancer") | .ipv4')
+KUBERNETES_PUBLIC_ADDRESS=$(linode-cli nodebalancers list --label kubernetes-nodebalancer \
+  --json | jq -cr '.[].ipv4')
 
 for instance in worker-0 worker-1 worker-2; do
   kubectl config set-cluster kubernetes-the-hard-way \
