@@ -38,5 +38,6 @@ else
   linode-cli firewalls delete ${FIREWALL_ID}
 fi
 
-echo "cleaning up local *.{csr,json,kubeconfig,pem,yaml} files"
+echo "cleaning up local *.{csr,json,kubeconfig,pem,yaml} files, as well as the generated private IP mappings"
 rm -rf ./*.{csr,json,kubeconfig,pem,yaml}
+rm private_ip_mappings
