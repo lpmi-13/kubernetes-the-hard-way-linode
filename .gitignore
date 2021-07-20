@@ -2,6 +2,8 @@
 *.pem
 *.kubeconfig
 *.json
+*.yaml
 *.csr
 !/config/*
 *id_rsa*
+private_ip_mappings

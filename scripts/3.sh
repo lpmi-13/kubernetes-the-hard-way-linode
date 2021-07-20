@@ -36,6 +36,10 @@ for i in 0 1 2; do
     --private_ip true
 done
 
+# because VM provisioning isn't super fast, and we want port 22 to be up and listening by the time we start copying over things
+echo waiting 30 seconds for nodes to come up...
+sleep 30
+
 CONFIG_ID=$(linode-cli nodebalancers config-create \
   --port 80 \
   --protocol http \
