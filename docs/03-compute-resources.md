@@ -24,8 +24,8 @@ NODE_BALANCER_ID=$(linode-cli nodebalancers create \
 > the load balancer takes about a minute or so to be created, so if the ip address doesn't resolve with the following command, try again a bit later.
 
 ```sh
-KUBERNETES_PUBLIC_ADDRESS=$(linode-cli nodebalancers list --json \
-  | jq -cr '.[] | select(.label == "kubernetes-nodebalancer") | .ipv4')
+KUBERNETES_PUBLIC_ADDRESS=$(linode-cli nodebalancers list --label kubernetes-nodebalancer --json \
+  | jq -cr '.[].ipv4')
 ```
 
 ...we also might want to set up the configuration first, since it looks like if we set up the compute, it triggers the nodebalancer to automatically select port 443, which then makes it difficult to create the right config.
@@ -86,16 +86,10 @@ We have to wait for all the instances to be created before we can add them (obvi
 
 First, we need to set a specific config for the load balancer, and then we can attach the controllers to that config.
 
-(this is still a bit dicey, since linode nodebalancers still don't natively allow https on nodebalancers, so still sorting out the best way to approach this).
-
-(we're also gonna try to just use port 80 on this, since we don't need to mess around with SSL certs...which is bad...but will probably work)
-
-(we also apparently don't have a return value from this config-create command, so we're gonna split out the creation and the assignment here into two different commands)
-
 ```sh
 CONFIG_ID=$(linode-cli nodebalancers config-create \
-  --port 80 \
-  --protocol http \
+  --port 443 \
+  --protocol tcp \
   --check connection \
   --check_path /healthz \
   --check_interval 10 \
@@ -124,11 +118,8 @@ done
 
 ...the sytax for the rules is...verbose, so it's easier to just pipe from a file
 
-(might need to add an accept for port 80 to these...remains to be seen)
-
 INBOUND_RULES=$(jq < config/inbound_rules.json)
 OUTBOUND_RULES=$(jq < config/outbound_rules.json)
-
 
 ```
 FIREWALL_ID=$(linode-cli firewalls create \

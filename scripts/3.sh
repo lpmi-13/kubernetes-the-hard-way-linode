@@ -41,8 +41,8 @@ echo waiting 30 seconds for nodes to come up...
 sleep 30
 
 CONFIG_ID=$(linode-cli nodebalancers config-create \
-  --port 80 \
-  --protocol http \
+  --port 443 \
+  --protocol tcp \
   --check connection \
   --check_path /healthz \
   --check_interval 10 \
