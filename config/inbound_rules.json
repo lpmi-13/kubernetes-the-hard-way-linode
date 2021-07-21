@@ -72,6 +72,30 @@
     "description": "allow inter-controller communication over udp"
   },
   {
+    "ports": "1-65535",
+    "protocol": "TCP",
+    "addresses": {
+      "ipv4": [
+        "10.200.0.0/16"
+      ]
+    },
+    "action": "ACCEPT",
+    "label": "k8s pods traffic",
+    "description": "allow communication between pods via tcp"
+  },
+  {
+    "ports": "1-65535",
+    "protocol": "UDP",
+    "addresses": {
+      "ipv4": [
+        "10.200.0.0/16"
+      ]
+    },
+    "action": "ACCEPT",
+    "label": "k8s pods traffic",
+    "description": "allow communication between pods via udp"
+  },
+  {
     "protocol": "ICMP",
     "addresses": {
       "ipv4": [

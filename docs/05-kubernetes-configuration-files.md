@@ -13,8 +13,8 @@ Each kubeconfig requires a Kubernetes API Server to connect to. To support high 
 Retrieve the `kubernetes-the-hard-way` DNS address:
 
 ```
-KUBERNETES_PUBLIC_ADDRESS=$(linode-cli nodebalancers list \
-  --json | jq -cr '.[] | select(.label == "kubernetes-nodebalancer") | .ipv4')
+KUBERNETES_PUBLIC_ADDRESS=$(linode-cli nodebalancers list --label kubernetes-nodebalancer \
+  --json | jq -cr '.[].ipv4')
 ```
 
 ### The kubelet Kubernetes Configuration File

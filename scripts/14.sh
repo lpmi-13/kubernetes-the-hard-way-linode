@@ -40,4 +40,8 @@ fi
 
 echo "cleaning up local *.{csr,json,kubeconfig,pem,yaml} files, as well as the generated private IP mappings"
 rm -rf ./*.{csr,json,kubeconfig,pem,yaml}
-rm private_ip_mappings
+if [ ! -f ./private_ip_mappings ]; then
+  echo "no private ip mappings found"
+else
+  rm private_ip_mappings
+fi

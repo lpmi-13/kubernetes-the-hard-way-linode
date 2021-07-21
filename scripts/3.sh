@@ -5,8 +5,8 @@ NODE_BALANCER_ID=$(linode-cli nodebalancers create \
   --region ${REGION} \
   --json | jq -r '.[].id')
 
-KUBERNETES_PUBLIC_ADDRESS=$(linode-cli nodebalancers list --json \
-  | jq -cr '.[] | select(.label == "kubernetes-nodebalancer") | .ipv4')
+KUBERNETES_PUBLIC_ADDRESS=$(linode-cli nodebalancers list --label kubernetes-nodebalancer --json \
+  | jq -cr '.[].ipv4')
 
 ssh-keygen -t rsa -b 4096 -f kubernetes.id_rsa -N ""
 
