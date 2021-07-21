@@ -68,7 +68,7 @@
       ]
     },
     "action": "ACCEPT",
-    "label": "k8s pods traffic",
+    "label": "k8s-pods-traffic",
     "description": "allow communication between pods via tcp"
   },
   {
@@ -80,7 +80,7 @@
       ]
     },
     "action": "ACCEPT",
-    "label": "k8s pods traffic",
+    "label": "k8s-pods-traffic",
     "description": "allow communication between pods via udp"
   },
   {
