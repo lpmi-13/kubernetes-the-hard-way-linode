@@ -7,3 +7,4 @@
 !/config/*
 *id_rsa*
 private_ip_mappings
+update_dns.sh
