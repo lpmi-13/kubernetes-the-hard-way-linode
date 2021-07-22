@@ -37,7 +37,7 @@ This tutorial assumes you have access to [Linode](https://cloud.linode.com). If 
 
 * [Prerequisites](docs/01-prerequisites.md)
 * [Installing the Client Tools](docs/02-client-tools.md)
-* [Provisioning Compute Resources](docs/03-compute-resources.md) (WIP)
+* [Provisioning Compute Resources](docs/03-compute-resources.md)
 * [Provisioning the CA and Generating TLS Certificates](docs/04-certificate-authority.md)
 * [Generating Kubernetes Configuration Files for Authentication](docs/05-kubernetes-configuration-files.md)
 * [Generating the Data Encryption Config and Key](docs/06-data-encryption-keys.md)
@@ -48,7 +48,7 @@ This tutorial assumes you have access to [Linode](https://cloud.linode.com). If 
 * [Provisioning Pod Network Routes](docs/11-pod-network-routes.md)
 * [Deploying the DNS Cluster Add-on](docs/12-dns-addon.md) (WIP)
 * [Smoke Test](docs/13-smoke-test.md) (WIP)
-* [Cleaning Up](docs/14-cleanup.md) (WIP)
+* [Cleaning Up](docs/14-cleanup.md)
 
 ## Scripts
 
