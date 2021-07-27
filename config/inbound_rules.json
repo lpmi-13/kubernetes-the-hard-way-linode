@@ -24,18 +24,6 @@
     "description": "allows ingress to k8s control plane"
   },
   {
-    "ports": "443",
-    "protocol": "TCP",
-    "addresses": {
-      "ipv4": [
-        "0.0.0.0/0"
-      ]
-    },
-    "action": "ACCEPT",
-    "label": "accept-inbound-HTTPS",
-    "description": "allows ingress over https"
-  },
-  {
     "ports": "1-65535",
     "protocol": "TCP",
     "addresses": {
