@@ -6,7 +6,7 @@ kubectl get pods -l k8s-app=kube-dns -n kube-system
 
 sleep 5
 
-kubectl run busybox --image=busybox:1.28 --restart=Never -- sleep 3600
+kubectl run busybox --image=busybox:1.28.4 --restart=Never -- sleep 3600
 
 sleep 10
 

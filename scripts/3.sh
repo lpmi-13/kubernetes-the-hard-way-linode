@@ -75,8 +75,8 @@ FIREWALL_ID=$(linode-cli firewalls create \
   --json \
   | jq -r '.[].id')
 
-for i in 0 1 2; do
-  instance_id=$(linode-cli linodes list --label controller-${i} --json | jq -r '.[].id')
+for i in worker-0 worker-1 worker-2 controller-0 controller-1 controller-2; do
+  instance_id=$(linode-cli linodes list --label ${i} --json | jq -r '.[].id')
   linode-cli firewalls device-create \
     --id "$instance_id" \
     --type linode \
