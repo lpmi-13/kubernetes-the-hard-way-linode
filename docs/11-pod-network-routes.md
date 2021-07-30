@@ -19,6 +19,8 @@ $ ip route add 10.200.1.0/24 via 192.168.138.48
 
 ## The Routing Table and routes on the workers
 
+> (Note: I eventually found a few obscure references to the fact that linode has packet filtering that just drops packets without src's that are inside their default private network 192.168.128.0/17, and I suspect this is why this tutorial falls flat in a region like eu-west, but works in a region with VLANs, like ca-central)
+
 Since Linode (similar to Digitalocean) doesn't have a nice network routing abstraction from the CLI like AWS/GCP, we have to do this a bit manually, but it has the same effect.
 
 Unfortunately, the previously generated `private_ip_mappings` file won't help us here, since it has the private IP addresses for the controller instances, but we can grab the same values for the worker instances and just update the workers via ssh.
