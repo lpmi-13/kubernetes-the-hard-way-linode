@@ -46,7 +46,7 @@ This tutorial assumes you have access to [Linode](https://cloud.linode.com). If 
 * [Bootstrapping the Kubernetes Worker Nodes](docs/09-bootstrapping-kubernetes-workers.md)
 * [Configuring kubectl for Remote Access](docs/10-configuring-kubectl.md)
 * [Provisioning Pod Network Routes](docs/11-pod-network-routes.md)
-* [Deploying the DNS Cluster Add-on](docs/12-dns-addon.md) (WIP)
+* [Deploying the DNS Cluster Add-on](docs/12-dns-addon.md)
 * [Smoke Test](docs/13-smoke-test.md)
 * [Cleaning Up](docs/14-cleanup.md)
 

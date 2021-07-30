@@ -1,1 +1,2 @@
-export REGION=eu-west
+export REGION=ca-central
+# this is where the Vlans are...

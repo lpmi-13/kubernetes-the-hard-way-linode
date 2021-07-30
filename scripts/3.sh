@@ -14,7 +14,7 @@ AUTHORIZED_KEY=$(cat kubernetes.id_rsa.pub)
 
 for i in 0 1 2; do
   linode-cli linodes create \
-    --type g6-nanode-1 \
+    --type g6-standard-1 \
     --region ${REGION} \
     --image linode/ubuntu18.04 \
     --root_pass "CHANGE_ME" \
@@ -26,7 +26,7 @@ done
 
 for i in 0 1 2; do
   linode-cli linodes create \
-    --type g6-nanode-1 \
+    --type g6-standard-1 \
     --region ${REGION} \
     --image linode/ubuntu18.04 \
     --root_pass "CHANGE_ME" \
@@ -61,25 +61,5 @@ for i in 0 1 2; do
     "$NODE_BALANCER_ID" \
     "$CONFIG_ID"
   echo added controller-${i} to load balancer
-done
-
-INBOUND_RULES=$(jq < config/inbound_rules.json)
-OUTBOUND_RULES=$(jq < config/outbound_rules.json)
-
-FIREWALL_ID=$(linode-cli firewalls create \
-  --label kubernetes-firewall \
-  --rules.outbound_policy ACCEPT \
-  --rules.inbound_policy ACCEPT \
-  --rules.inbound "$INBOUND_RULES" \
-  --rules.outbound "$OUTBOUND_RULES" \
-  --json \
-  | jq -r '.[].id')
-
-for i in worker-0 worker-1 worker-2 controller-0 controller-1 controller-2; do
-  instance_id=$(linode-cli linodes list --label ${i} --json | jq -r '.[].id')
-  linode-cli firewalls device-create \
-    --id "$instance_id" \
-    --type linode \
-    "$FIREWALL_ID"
 done
 
