@@ -52,7 +52,7 @@ This tutorial assumes you have access to [Linode](https://cloud.linode.com). If 
 
 ## Scripts
 
-Since I'm only able to work on this is short stretches, it's easiest to script out steps so I can pick up where I left off. If you'd like to get to a certain point automatically, for example, the end of the steps in `docs/06-data-encryption-keys.md`, then you can run:
+Since I'm only able to work on this in short stretches, it's easiest to script out steps so I can pick up where I left off. If you'd like to get to a certain point automatically, for example, the end of the steps in `docs/06-data-encryption-keys.md`, then you can run:
 
 ```
 for i in {3..6}; do
