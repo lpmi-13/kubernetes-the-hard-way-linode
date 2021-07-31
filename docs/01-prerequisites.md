@@ -46,7 +46,7 @@ Go ahead and set a default compute region:
 └──────────────┴─────────┴───────────────────────────────────────────────────────────────────────────────────────┴────────┘
 ```
 
-I _think_ all we need for this tutorial are linodes and nodebalancers, but I guess we'll find out! :)
+I _think_ all we technically need for this tutorial are linodes and nodebalancers, but we can probably add a firewall to be a bit more serious.
 
 ```
 REGION=eu-west
