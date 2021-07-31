@@ -118,6 +118,33 @@ done
 
 ### Firewall Rules
 
-I actually thought we would need a firewall, but linode's firewall doesn't seem to actually do anything, so we can just skip it.
+...the sytax for the rules is...verbose, so it's easier to just pipe from a file
+
+INBOUND_RULES=$(jq < config/inbound_rules.json)
+OUTBOUND_RULES=$(jq < config/outbound_rules.json)
+
+```
+FIREWALL_ID=$(linode-cli firewalls create \
+  --label kubernetes-firewall \
+  --rules.outbound_policy DROP \
+  --rules.inbound_policy DROP \
+  --rules.inbound "$INBOUND_RULES" \
+  --rules.outbound "$OUTBOUND_RULES" \
+  --json \
+  | jq -r '.[].id')
+
+```
+
+after the firewall is all set up, we need a separate API call to add the controller instances to it.
+
+```
+for i in 0 1 2; do
+  instance_id=$(linode-cli linodes list --label controller-${i} --json | jq -r '.[].id')
+  linode-cli firewalls device-create \
+    --id "$instance_id" \
+    --type linode \
+    "$FIREWALL_ID"
+done
+```
 
 Next: [Certificate Authority](04-certificate-authority.md)
