@@ -32,8 +32,8 @@
       ]
     },
     "action": "ACCEPT",
-    "label": "inter-controller-tcp",
-    "description": "allow communication between controllers over tcp"
+    "label": "inter-node-tcp",
+    "description": "allow communication between nodes over tcp"
   },
   {
     "ports": "1-65535",
@@ -44,8 +44,8 @@
       ]
     },
     "action": "ACCEPT",
-    "label": "inter-controller-udp",
-    "description": "allow inter-controller communication over udp"
+    "label": "inter-node-udp",
+    "description": "allow communication between nodes over udp"
   },
   {
     "ports": "1-65535",
