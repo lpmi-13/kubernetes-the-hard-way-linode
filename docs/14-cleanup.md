@@ -15,7 +15,7 @@ for tag in controller worker; do
 done
 ```
 
-## Local SSh Keys
+## Local SSH Keys
 
 Delete the SSH keys we created just for this exercise.
 
