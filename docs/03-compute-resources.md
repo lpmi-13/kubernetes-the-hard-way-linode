@@ -39,13 +39,13 @@ KUBERNETES_PUBLIC_ADDRESS=$(linode-cli nodebalancers list --label kubernetes-nod
 create a local ssh key just for this exercise
 
 ```
-ssh-keygen -t rsa -b 4096 -f kubernetes.id_rsa
+ssh-keygen -t ed25519 -o -a 100 -f kubernetes.ed25519
 ```
 
 > linode wants the contents of the ssh key rather than a file reference, so we need to cat this out
 
 ```sh
-AUTHORIZED_KEY=$(cat kubernetes.id_rsa.pub)
+AUTHORIZED_KEY=$(cat kubernetes.ed25519.pub)
 ```
 
 ### Kubernetes Controllers

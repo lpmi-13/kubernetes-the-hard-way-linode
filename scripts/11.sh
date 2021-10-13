@@ -30,15 +30,15 @@ worker_2_instance_id=$(linode-cli linodes list --label worker-2 --json \
 worker_2_public_ip=$(linode-cli linodes ips-list $worker_2_instance_id \
    --json | jq -r '.[].ipv4.public | .[].address')
 
-ssh -i kubernetes.id_rsa \
+ssh -i kubernetes.ed25519 \
   -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
   root@$worker_0_public_ip -C "ip route add 10.200.1.0/24 via $worker_1_private_ip;ip route add 10.200.2.0/24 via $worker_2_private_ip"
 
-ssh -i kubernetes.id_rsa \
+ssh -i kubernetes.ed25519 \
   -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
   root@$worker_1_public_ip -C "ip route add 10.200.0.0/24 via $worker_0_private_ip;ip route add 10.200.2.0/24 via $worker_2_private_ip"
 
-ssh -i kubernetes.id_rsa \
+ssh -i kubernetes.ed25519 \
   -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
   root@$worker_2_public_ip -C "ip route add 10.200.0.0/24 via $worker_0_private_ip;ip route add 10.200.1.0/24 via $worker_1_private_ip"
 
@@ -57,7 +57,7 @@ instance_id=$(linode-cli linodes list --label ${instance} \
 external_ip=$(linode-cli linodes ips-list ${instance_id} --json \
   | jq -r '.[].ipv4.public | .[].address')
 
-  ssh -i kubernetes.id_rsa \
+  ssh -i kubernetes.ed25519 \
   -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
   root@$external_ip < ./scripts/update_dns.sh
 done

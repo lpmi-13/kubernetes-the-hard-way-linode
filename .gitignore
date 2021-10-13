@@ -6,6 +6,6 @@
 *.csr
 !/config/*
 !/deployments/*
-*id_rsa*
+*ed25519*
 private_ip_mappings
 update_dns.sh

@@ -66,7 +66,7 @@ run the following commands for each of the worker nodes:
 - worker-0
 
 ```sh
-ssh -i kubernetes.id_rsa \
+ssh -i kubernetes.ed25519 \
   -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
   root@$worker_0_public_ip -C "ip route add 10.200.1.0/24 via $worker_1_private_ip;ip route add 10.200.2.0/24 via $worker_2_private_ip"
 ```
@@ -74,7 +74,7 @@ ssh -i kubernetes.id_rsa \
 - worker-1
 
 ```sh
-ssh -i kubernetes.id_rsa \
+ssh -i kubernetes.ed25519 \
   -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
   root@$worker_1_public_ip -C "ip route add 10.200.0.0/24 via $worker_0_private_ip;ip route add 10.200.2.0/24 via $worker_2_private_ip"
 ```
@@ -82,7 +82,7 @@ ssh -i kubernetes.id_rsa \
 - worker-2
 
 ```sh
-ssh -i kubernetes.id_rsa \
+ssh -i kubernetes.ed25519 \
   -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
   root@$worker_2_public_ip -C "ip route add 10.200.0.0/24 via $worker_0_private_ip;ip route add 10.200.1.0/24 via $worker_1_private_ip"
 ```

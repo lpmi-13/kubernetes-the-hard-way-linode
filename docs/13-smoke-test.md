@@ -20,7 +20,7 @@ instance_id=$(linode-cli linodes list --label controller-0 \
 external_ip=$(linode-cli linodes ips-list ${instance_id} --json \
   | jq -r '.[].ipv4.public | .[].address')
 
-ssh -i kubernetes.id_rsa root@${external_ip}
+ssh -i kubernetes.ed25519 root@${external_ip}
 ```
 Run below command in controller-0
 
@@ -233,7 +233,7 @@ instance_id=$(linode-cli linodes list --label worker-0 --json \
 external_ip=$(linode-cli linodes ips-list $instance_id \
   --json | jq -r '.[].ipv4.public | .[].address')
 
-ssh -i kubernetes.id_rsa root@${external_ip}
+ssh -i kubernetes.ed25519 root@${external_ip}
 ```
 Run the following commands and check output
 

@@ -41,7 +41,7 @@ for instance in controller-0 controller-1 controller-2; do
   external_ip=$(linode-cli linodes ips-list ${instance_id} \
     --json | jq -r '.[].ipv4.public | .[].address')
   
-  scp -i kubernetes.id_rsa \
+  scp -i kubernetes.ed25519 \
   -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
   encryption-config.yaml root@${external_ip}:~/
 done

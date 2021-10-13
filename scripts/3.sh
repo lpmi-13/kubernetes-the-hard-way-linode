@@ -8,9 +8,9 @@ NODE_BALANCER_ID=$(linode-cli nodebalancers create \
 KUBERNETES_PUBLIC_ADDRESS=$(linode-cli nodebalancers list --label kubernetes-nodebalancer --json \
   | jq -cr '.[].ipv4')
 
-ssh-keygen -t rsa -b 4096 -f kubernetes.id_rsa -N ""
+ssh-keygen -t ed25519 -o -a 100 -f kubernetes.ed25519 -N ""
 
-AUTHORIZED_KEY=$(cat kubernetes.id_rsa.pub)
+AUTHORIZED_KEY=$(cat kubernetes.ed25519.pub)
 
 for i in 0 1 2; do
   linode-cli linodes create \

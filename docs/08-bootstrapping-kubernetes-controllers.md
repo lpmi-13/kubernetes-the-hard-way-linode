@@ -14,7 +14,7 @@ for instance in controller-0 controller-1 controller-2; do
   external_ip=$(linode-cli linodes ips-list ${instance_id} \
     --json | jq -r '.[].ipv4.public | .[].address')
 
-  echo ssh -i kubernetes.id_rsa root@$external_ip
+  echo ssh -i kubernetes.ed25519 root@$external_ip
 done
 ```
 
@@ -244,7 +244,7 @@ controller_0_instance_id=$(linode-cli linodes list --label controller-0 \
 external_ip=$(linode-cli linodes ips-list $controller_0_instance_id --json \
   | jq -r '.[].ipv4.public | .[].address')
 
-ssh -i kubernetes.id_rsa root@${external_ip}
+ssh -i kubernetes.ed25519 root@${external_ip}
 ```
 
 Create the `system:kube-apiserver-to-kubelet` [ClusterRole](https://kubernetes.io/docs/admin/authorization/rbac/#role-and-clusterrole) with permissions to access the Kubelet API and perform most common tasks associated with managing pods:

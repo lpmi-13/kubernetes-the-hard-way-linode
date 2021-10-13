@@ -5,7 +5,7 @@ for instance in controller-0 controller-1 controller-2; do
   external_ip=$(linode-cli linodes ips-list ${instance_id} --json \
     | jq -r '.[].ipv4.public | .[].address')
 
-  ssh -i kubernetes.id_rsa \
+  ssh -i kubernetes.ed25519 \
   -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
   root@$external_ip < ./scripts/bootstrap_control_plane.sh
 done
@@ -19,7 +19,7 @@ for instance in controller-0; do
   external_ip=$(linode-cli linodes ips-list ${instance_id} --json \
     | jq -r '.[].ipv4.public | .[].address')
 
-  ssh -i kubernetes.id_rsa \
+  ssh -i kubernetes.ed25519 \
   -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
   root@$external_ip "kubectl get componentstatus"
 done
@@ -31,7 +31,7 @@ instance_id=$(linode-cli linodes list --label controller-0 \
 external_ip=$(linode-cli linodes ips-list ${instance_id} --json \
   | jq -r '.[].ipv4.public | .[].address')
 
-ssh -i kubernetes.id_rsa \
+ssh -i kubernetes.ed25519 \
 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
 root@$external_ip < ./scripts/set_up_rbac.sh
 

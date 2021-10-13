@@ -3,11 +3,11 @@ for instance in worker-0 worker-1 worker-2; do
   external_ip=$(linode-cli linodes ips-list ${instance_id} \
     --json | jq -r '.[].ipv4.public | .[].address')
 
-  ssh -i kubernetes.id_rsa \
+  ssh -i kubernetes.ed25519 \
   -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
   root@$external_ip "hostnamectl set-hostname $instance"
 
-  ssh -i kubernetes.id_rsa \
+  ssh -i kubernetes.ed25519 \
   -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
   root@$external_ip < ./scripts/bootstrap_workers.sh
 done
@@ -19,7 +19,7 @@ instance_id=$(linode-cli linodes list --label controller-0 --json | jq -r '.[].i
 external_ip=$(linode-cli linodes ips-list ${instance_id} \
     --json | jq -r '.[].ipv4.public | .[].address')
 
-ssh -i kubernetes.id_rsa \
+ssh -i kubernetes.ed25519 \
 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
 root@$external_ip "kubectl get nodes --kubeconfig admin.kubeconfig"
 

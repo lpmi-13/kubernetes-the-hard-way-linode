@@ -244,7 +244,7 @@ for instance in worker-0 worker-1 worker-2; do
   instance_id=$(linode-cli linodes list --label "$instance" --json | jq -r '.[].id')
   external_ip=$(linode-cli linodes ips-list "$instance_id" --json | jq -r '.[].ipv4.public | .[].address')
 
-  scp -i kubernetes.id_rsa \
+  scp -i kubernetes.ed25519 \
     -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
     ca.pem ${instance}-key.pem ${instance}.pem root@${external_ip}:~/
 done
@@ -253,7 +253,7 @@ for instance in controller-0 controller-1 controller-2; do
   instance_id=$(linode-cli linodes list --label "$instance" --json | jq -r '.[].id')
   external_ip=$(linode-cli linodes ips-list "$instance_id" --json | jq -r '.[].ipv4.public | .[].address')
 
-  scp -i kubernetes.id_rsa \
+  scp -i kubernetes.ed25519 \
     -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
     ca.pem ca-key.pem kubernetes-key.pem kubernetes.pem \
     service-account-key.pem service-account.pem root@${external_ip}:~/
